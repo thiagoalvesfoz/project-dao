@@ -1,27 +1,39 @@
 package com.monfauna;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import com.monfauna.infra.Database;
+import com.monfauna.model.Owner;
+
+import java.sql.*;
 
 public class DatabaseConnection {
 
     public static void main(String[] args) {
-        String username = "root";
-        String password = "1234";
-        String database = "MonFauna";
-        String timeZone = "?useTimezone=true&serverTimezone=UTC";
-        String url = "jdbc:mysql://Localhost:3306/" + database + timeZone;
 
-        try {
-            Connection conn = DriverManager.getConnection(url, username, password);
-            System.out.println("Conexão bem sucedida");
-            conn.close();
+        Connection conn = Database.getConnection();
+
+        try{
+            String sql = "SELECT * FROM user";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs  = ps.executeQuery();
+
+            while (rs.next()){
+                Owner user = new Owner();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setAdmin(rs.getBoolean("admin"));
+                System.out.println(user);
+            }
+
+            rs.close();
+            ps.close();
+        }catch (SQLException e){
+            System.out.println("Falhou");
+            e.printStackTrace();
         }
-        catch (SQLException ex) {
-            System.out.println("Falha na conexão!");
-            ex.printStackTrace();
-        }
+
+        Database.closeConnection(conn);
 
     }
 }
