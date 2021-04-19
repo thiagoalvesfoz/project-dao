@@ -29,8 +29,7 @@ public class Main {
         Animal animal = new Animal(
                 null,
                 "",
-                "",
-                "",
+                new Specie(),
                 'F',
                 "",
                 LocalDateTime.now(),
@@ -38,7 +37,7 @@ public class Main {
                 LocalDate.now(),
                 location
         );
-        animal.addMeasurement("", "", "", "", "");
+        animal.addMeasurement( 8.7, 5.6, 4.3, 32.0, "");
 
         Project project = new Project();
         project.setName("Jurassic Park");

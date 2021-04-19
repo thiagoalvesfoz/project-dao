@@ -3,10 +3,10 @@ package com.monfauna.model;
 public class AnimalMeasurement {
 
     private Integer id;
-    private String length;
-    private String width;
-    private String height;
-    private String weight;
+    private Double length;
+    private Double width;
+    private Double height;
+    private Double weight;
     private String description;
 
     public Integer getId() {
@@ -17,35 +17,35 @@ public class AnimalMeasurement {
         this.id = id;
     }
 
-    public String getLength() {
+    public Double getLength() {
         return length;
     }
 
-    public void setLength(String length) {
+    public void setLength(Double length) {
         this.length = length;
     }
 
-    public String getWidth() {
+    public Double getWidth() {
         return width;
     }
 
-    public void setWidth(String width) {
+    public void setWidth(Double width) {
         this.width = width;
     }
 
-    public String getHeight() {
+    public Double getHeight() {
         return height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(Double height) {
         this.height = height;
     }
 
-    public String getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 

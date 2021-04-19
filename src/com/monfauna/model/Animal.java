@@ -8,8 +8,7 @@ import java.util.List;
 public class Animal {
 
     private Integer id;
-    private String scientificName;
-    private String commonName;
+    private Specie specie;
     private String number;
     private char sex;
     private String imageUrl;
@@ -23,11 +22,10 @@ public class Animal {
 
     }
 
-    public Animal(Integer id, String scientificName, String commonName, String number, char sex, String imageUrl, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDate registerDate, Location location) {
+    public Animal(Integer id, String number, Specie specie, char sex, String imageUrl, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDate registerDate, Location location) {
         this.id = id;
-        this.scientificName = scientificName;
-        this.commonName = commonName;
         this.number = number;
+        this.specie = specie;
         this.sex = sex;
         this.imageUrl = imageUrl;
         this.createdAt = createdAt;
@@ -44,20 +42,8 @@ public class Animal {
         this.id = id;
     }
 
-    public String getScientificName() {
-        return scientificName;
-    }
-
-    public void setScientificName(String scientificName) {
-        this.scientificName = scientificName;
-    }
-
-    public String getCommonName() {
-        return commonName;
-    }
-
-    public void setCommonName(String commonName) {
-        this.commonName = commonName;
+    public Specie getSpecie() {
+        return specie;
     }
 
     public String getNumber() {
@@ -120,7 +106,7 @@ public class Animal {
         return measurements;
     }
 
-    public void addMeasurement(String length, String width, String height, String weight, String description){
+    public void addMeasurement(Double length, Double width, Double height, Double weight, String description){
         AnimalMeasurement animalMeasurement = new AnimalMeasurement();
         animalMeasurement.setHeight(height);
         animalMeasurement.setLength(length);
@@ -135,9 +121,8 @@ public class Animal {
     public String toString() {
         return "Animal{" +
                 "id=" + id +
-                ", scientificName='" + scientificName + '\'' +
-                ", commonName='" + commonName + '\'' +
                 ", number='" + number + '\'' +
+                ", specie=" + specie + '\'' +
                 ", sex=" + sex +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", createdAt=" + createdAt +
