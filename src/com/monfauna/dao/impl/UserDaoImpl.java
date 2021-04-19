@@ -37,12 +37,7 @@ public class UserDaoImpl implements UserDao {
             rs = conn.prepareStatement(sql).executeQuery();
 
             while (rs.next()){
-                User user = new Owner();
-                user.setId(rs.getInt("id"));
-                user.setName(rs.getString("name"));
-                user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));
-                user.setAdmin(rs.getBoolean("admin"));
+                User user = getInstanceUser(rs);
                 users.add(user);
             }
 
@@ -59,6 +54,28 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findById(Integer id) {
+
+        PreparedStatement st = null;
+        ResultSet rs  = null;
+
+        try{
+            String sql = "SELECT * FROM user WHERE id = ?";
+            st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            rs = st.executeQuery();
+
+            if (rs.next()){
+                return getInstanceUser(rs);
+
+            }
+
+        } catch (SQLException e){
+            System.out.println("Falhou");
+            e.printStackTrace();
+        } finally {
+            Database.closeResultSet(rs);
+        }
+
         return null;
     }
 
@@ -70,5 +87,15 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void deleteById(Integer id) {
 
+    }
+
+    private User getInstanceUser(ResultSet rs) throws SQLException {
+        User user = new Owner();
+        user.setId(rs.getInt("id"));
+        user.setName(rs.getString("name"));
+        user.setEmail(rs.getString("email"));
+        user.setPassword(rs.getString("password"));
+        user.setAdmin(rs.getBoolean("admin"));
+        return user;
     }
 }
