@@ -6,4 +6,7 @@ public class DaoFactory {
     public static UserDaoImpl getUserDao(){
         return new UserDaoImpl(Database.getConnection());
     }
+    public static LocationDaoImpl getLocationDao(){
+        return  new LocationDaoImpl(Database.getConnection());
+    }
 }

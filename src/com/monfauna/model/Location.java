@@ -1,5 +1,7 @@
 package com.monfauna.model;
 
+import java.util.List;
+
 public class Location {
 
     private Integer id;
@@ -48,4 +50,6 @@ public class Location {
                 ", longitude='" + longitude + '\'' +
                 '}';
     }
+
+
 }
