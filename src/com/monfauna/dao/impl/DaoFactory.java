@@ -9,4 +9,7 @@ public class DaoFactory {
     public static LocationDaoImpl getLocationDao(){
         return  new LocationDaoImpl(Database.getConnection());
     }
+    public static SpecieTypeImpl getSpecieTypeDao(){
+        return new SpecieTypeImpl(Database.getConnection());
+    }
 }

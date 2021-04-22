@@ -20,4 +20,12 @@ public class SpecieType {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "SpecieType{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
