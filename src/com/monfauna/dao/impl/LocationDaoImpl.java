@@ -5,10 +5,7 @@ import com.monfauna.infra.Database;
 import com.monfauna.model.Location;
 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +19,30 @@ public class LocationDaoImpl implements LocationDao {
 
     @Override
     public Location save(Location location) {
+        PreparedStatement ps;
+        ResultSet rs = null;
+        String sql = "insert into location(name, latitude, longitude) values(?, ?, ?);";
+
+        try {
+            ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, location.getName());
+            ps.setString(2, location.getLatitude());
+            ps.setString(3, location.getLongitude());
+
+            int rowsAffected = ps.executeUpdate();
+            rs = ps.getGeneratedKeys();
+
+            if (rowsAffected != 0 && rs.next()) {
+                location.setId(rs.getInt(1));
+                return location;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("unable to save data");
+            e.printStackTrace();
+        } finally {
+            Database.closeResultSet(rs);
+        }
         return null;
     }
 
@@ -81,11 +102,53 @@ public class LocationDaoImpl implements LocationDao {
 
     @Override
     public Location update(Location location) {
+        PreparedStatement ps = null;
+        String sql = "UPDATE location SET name = ?, latitude = ?, longitude = ? " +
+                "WHERE id = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, location.getName());
+            ps.setString(2, location.getLatitude());
+            ps.setString(3, location.getLongitude());
+            ps.setInt(4, location.getId());
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 0) {
+                return location;
+            }
+            throw new SQLException("location not found");
+
+        } catch (SQLException e) {
+            System.out.println("fail");
+            e.printStackTrace();
+
+        } finally {
+            Database.closePreparedStatement(ps);
+        }
+
         return null;
     }
 
     @Override
     public void deleteById(Integer id) {
+        PreparedStatement ps = null;
+
+        try {
+            String sql = "DELETE FROM location WHERE id = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected ==0) {
+                throw new SQLException("location id not found");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            Database.closePreparedStatement(ps);
+        }
+
 
     }
 

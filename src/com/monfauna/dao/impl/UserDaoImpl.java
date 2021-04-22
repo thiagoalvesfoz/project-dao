@@ -5,43 +5,68 @@ import com.monfauna.infra.Database;
 import com.monfauna.model.Owner;
 import com.monfauna.model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.time.format.DateTimeFormatter.ofPattern;
 
 public class UserDaoImpl implements UserDao {
 
     private final Connection conn;
 
-    public UserDaoImpl(Connection conn){
-       this.conn = conn;
+    public UserDaoImpl(Connection conn) {
+        this.conn = conn;
     }
 
     @Override
     public User save(User user) {
+        PreparedStatement ps;
+        ResultSet rs = null;
+        String sql = "insert into user (name, email, password, admin) values (?, ?, ?, ?);";
+        try {
+            ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.setBoolean(4, user.isAdmin());
+
+            int rowsAffected = ps.executeUpdate();
+            rs = ps.getGeneratedKeys();
+
+            if (rowsAffected != 0 && rs.next()) {
+                user.setId(rs.getInt(1));
+                return user;
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println("unable to save data");
+            e.printStackTrace();
+        } finally {
+            Database.closeResultSet(rs);
+        }
         return null;
     }
 
+
     @Override
-    public List<User> findAll()  {
+    public List<User> findAll() {
 
         List<User> users = new ArrayList<>();
+        ResultSet rs = null;
 
-        ResultSet rs  = null;
-
-        try{
+        try {
             String sql = "SELECT * FROM user";
             rs = conn.prepareStatement(sql).executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 User user = getInstanceUser(rs);
                 users.add(user);
             }
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Falhou");
             e.printStackTrace();
         } finally {
@@ -55,21 +80,21 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User findById(Integer id) {
 
-        PreparedStatement st = null;
-        ResultSet rs  = null;
+        PreparedStatement ps;
+        ResultSet rs = null;
 
-        try{
+        try {
             String sql = "SELECT * FROM user WHERE id = ?";
-            st = conn.prepareStatement(sql);
-            st.setInt(1, id);
-            rs = st.executeQuery();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
 
-            if (rs.next()){
+            if (rs.next()) {
                 return getInstanceUser(rs);
 
             }
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Falhou");
             e.printStackTrace();
         } finally {
@@ -81,11 +106,54 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User update(User user) {
+        PreparedStatement ps = null;
+        String sql = "UPDATE user SET name = ?, email = ?, password = ?, admin = ?, updated_at = ? " +
+                "WHERE id = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.setBoolean(4, user.isAdmin());
+            ps.setString(5, user.getUpdatedAt().format(ofPattern("yyyy-MM-dd HH:mm:ss")));
+            ps.setInt(6, user.getId());
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 0) {
+                return user;
+            }
+            throw new SQLException("user not found");
+
+        } catch (SQLException e) {
+            System.out.println("fail");
+            e.printStackTrace();
+        } finally {
+            Database.closePreparedStatement(ps);
+        }
+
         return null;
     }
 
     @Override
     public void deleteById(Integer id) {
+        PreparedStatement ps = null;
+
+        try {
+            String sql = "DELETE FROM user WHERE id = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected == 0) {
+                throw new SQLException();
+            }
+
+        } catch (SQLException e) {
+            System.out.println("nao foi possivel remover usuario");
+            e.printStackTrace();
+        } finally {
+            Database.closePreparedStatement(ps);
+        }
 
     }
 
@@ -96,6 +164,8 @@ public class UserDaoImpl implements UserDao {
         user.setEmail(rs.getString("email"));
         user.setPassword(rs.getString("password"));
         user.setAdmin(rs.getBoolean("admin"));
+        user.setCreatedAt(LocalDateTime.parse(rs.getString("created_at"), ofPattern("yyyy-MM-dd HH:mm:ss")));
+        user.setUpdatedAt(LocalDateTime.parse(rs.getString("updated_at"), ofPattern("yyyy-MM-dd HH:mm:ss")));
         return user;
     }
 }

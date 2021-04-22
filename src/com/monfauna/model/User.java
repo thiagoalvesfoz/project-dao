@@ -1,5 +1,7 @@
 package com.monfauna.model;
 
+import java.time.LocalDateTime;
+
 //classe User não pode ser instanciada pq é uma classe abstrata e estas não podem ser concretizadas,
 //apenas definem como suas subclasses funcionam
 public abstract class User {
@@ -9,6 +11,24 @@ public abstract class User {
     private String email;
     private String password;
     private boolean admin;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
     public Integer getId() {
         return id;
@@ -58,6 +78,8 @@ public abstract class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", admin=" + admin +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }

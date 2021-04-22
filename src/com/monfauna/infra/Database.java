@@ -1,9 +1,6 @@
 package com.monfauna.infra;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Database {
 
@@ -44,6 +41,15 @@ public class Database {
             conn.close();
         } catch (SQLException throwables) {
             System.out.println("não há conexões abertas");
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void closePreparedStatement(PreparedStatement ps){
+        try{
+            ps.close();
+        }catch (SQLException throwables){
+            System.out.println("nao ha conexoes abertas");
             throwables.printStackTrace();
         }
     }
