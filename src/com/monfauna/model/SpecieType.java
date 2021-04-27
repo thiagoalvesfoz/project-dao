@@ -5,6 +5,14 @@ public class SpecieType {
     private Integer id;
     private String name;
 
+    public SpecieType() {
+
+    }
+
+    public SpecieType(String name){
+        this.name = name;
+    }
+
     public Integer getId() {
         return id;
     }

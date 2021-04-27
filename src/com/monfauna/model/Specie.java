@@ -60,4 +60,15 @@ public class Specie {
         this.specieType = specieType;
     }
 
+    @Override
+    public String toString() {
+        return "Specie{" +
+                "id=" + id +
+                ", scientificName='" + scientificName + '\'' +
+                ", commonName='" + commonName + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", specieType=" + specieType +
+                '}';
+    }
 }

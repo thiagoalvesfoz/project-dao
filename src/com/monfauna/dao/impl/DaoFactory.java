@@ -1,6 +1,7 @@
 package com.monfauna.dao.impl;
 
 import com.monfauna.infra.Database;
+import com.monfauna.model.SpecieType;
 
 public class DaoFactory {
     public static UserDaoImpl getUserDao(){
@@ -9,7 +10,13 @@ public class DaoFactory {
     public static LocationDaoImpl getLocationDao(){
         return  new LocationDaoImpl(Database.getConnection());
     }
-    public static SpecieTypeImpl getSpecieTypeDao(){
-        return new SpecieTypeImpl(Database.getConnection());
+    public static SpecieTypeDaoImpl getSpecieTypeDao(){
+        return new SpecieTypeDaoImpl(Database.getConnection());
+    }
+    public static AnimalMeasurementDaoImpl getAnimalMeasurementDao(){
+        return new AnimalMeasurementDaoImpl(Database.getConnection());
+    }
+    public static SpecieDaoImpl getSpecieDao(){
+        return  new SpecieDaoImpl(Database.getConnection());
     }
 }

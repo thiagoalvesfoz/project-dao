@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocationDaoImpl implements LocationDao {
+class LocationDaoImpl implements LocationDao {
 
     private final Connection conn;
 
@@ -63,7 +63,7 @@ public class LocationDaoImpl implements LocationDao {
             }
 
         } catch (SQLException e){
-            System.out.println("Falhou");
+            System.out.println("fail");
             e.printStackTrace();
         } finally {
             Database.closeResultSet(rs);
@@ -91,7 +91,7 @@ public class LocationDaoImpl implements LocationDao {
             }
 
         } catch (SQLException e){
-            System.out.println("Falhou");
+            System.out.println("fail");
             e.printStackTrace();
         } finally {
             Database.closeResultSet(rs);

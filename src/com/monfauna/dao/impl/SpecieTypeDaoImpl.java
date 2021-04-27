@@ -1,97 +1,90 @@
 package com.monfauna.dao.impl;
 
-import com.monfauna.dao.UserDao;
+import com.monfauna.dao.SpecieTypeDao;
 import com.monfauna.infra.Database;
-import com.monfauna.model.Owner;
-import com.monfauna.model.User;
+import com.monfauna.model.SpecieType;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.time.format.DateTimeFormatter.ofPattern;
-
-class UserDaoImpl implements UserDao {
+class SpecieTypeDaoImpl implements SpecieTypeDao {
 
     private final Connection conn;
 
-    public UserDaoImpl(Connection conn) {
+    public SpecieTypeDaoImpl(Connection conn) {
         this.conn = conn;
     }
 
+
     @Override
-    public User save(User user) {
+    public SpecieType save(SpecieType specieType) {
         PreparedStatement ps;
         ResultSet rs = null;
-        String sql = "INSERT INTO user (name, email, password, admin) VALUES (?, ?, ?, ?);";
+        String sql = "INSERT INTO specie_type (name) VALUES (?);";
         try {
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPassword());
-            ps.setBoolean(4, user.isAdmin());
+            ps.setString(1, specieType.getName());
 
             int rowsAffected = ps.executeUpdate();
             rs = ps.getGeneratedKeys();
 
             if (rowsAffected != 0 && rs.next()) {
-                user.setId(rs.getInt(1));
-                return user;
-
+                specieType.setId(rs.getInt(1));
+                return specieType;
             }
-
         } catch (SQLException e) {
             System.out.println("unable to save data");
             e.printStackTrace();
         } finally {
             Database.closeResultSet(rs);
         }
+
         return null;
     }
 
-
     @Override
-    public List<User> findAll() {
+    public List<SpecieType> findAll() {
 
-        List<User> users = new ArrayList<>();
+        List<SpecieType> specieTypes = new ArrayList<>();
         ResultSet rs = null;
 
         try {
-            String sql = "SELECT * FROM user";
+            String sql = "SELECT * FROM specie_type";
             rs = conn.prepareStatement(sql).executeQuery();
 
             while (rs.next()) {
-                User user = getInstanceUser(rs);
-                users.add(user);
+                SpecieType specieType = getInstanceSpecieType(rs);
+                specieTypes.add(specieType);
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException e){
             System.out.println("fail");
             e.printStackTrace();
+
         } finally {
             Database.closeResultSet(rs);
         }
 
-        return users;
-
+        return specieTypes;
     }
 
+
+
     @Override
-    public User findById(Integer id) {
+    public SpecieType findById(Integer id) {
 
         PreparedStatement ps;
         ResultSet rs = null;
 
         try {
-            String sql = "SELECT * FROM user WHERE id = ?";
+            String sql = "SELECT * FROM specie_type WHERE id = ?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                return getInstanceUser(rs);
-
+                return  getInstanceSpecieType(rs);
             }
 
         } catch (SQLException e) {
@@ -105,30 +98,28 @@ class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User update(User user) {
+    public SpecieType update(SpecieType specieType) {
         PreparedStatement ps = null;
-        String sql = "UPDATE user SET name = ?, email = ?, password = ?, admin = ?, updated_at = ? " +
-                "WHERE id = ?";
+        String sql = "UPDATE specie_type SET name = ? WHERE id = ?";
+
         try {
             ps = conn.prepareStatement(sql);
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPassword());
-            ps.setBoolean(4, user.isAdmin());
-            ps.setString(5, user.getUpdatedAt().format(ofPattern("yyyy-MM-dd HH:mm:ss")));
-            ps.setInt(6, user.getId());
+            ps.setString(1, specieType.getName());
+            ps.setInt(2, specieType.getId());
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected != 0) {
-                return user;
+                return specieType;
             }
-            throw new SQLException("user not found");
+            throw new SQLException("specie type not found");
 
         } catch (SQLException e) {
             System.out.println("fail");
             e.printStackTrace();
-        } finally {
+
+        }finally {
             Database.closePreparedStatement(ps);
+
         }
 
         return null;
@@ -139,13 +130,14 @@ class UserDaoImpl implements UserDao {
         PreparedStatement ps = null;
 
         try {
-            String sql = "DELETE FROM user WHERE id = ?";
+            String sql = "DELETE FROM specie_type WHERE id =?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
+
             int rowsAffected = ps.executeUpdate();
 
-            if (rowsAffected == 0) {
-                throw new SQLException("unable to remove user");
+            if (rowsAffected ==0) {
+                throw new SQLException("unable to remove specie type");
             }
 
         } catch (SQLException e) {
@@ -155,17 +147,14 @@ class UserDaoImpl implements UserDao {
             Database.closePreparedStatement(ps);
         }
 
+
     }
 
-    private User getInstanceUser(ResultSet rs) throws SQLException {
-        User user = new Owner();
-        user.setId(rs.getInt("id"));
-        user.setName(rs.getString("name"));
-        user.setEmail(rs.getString("email"));
-        user.setPassword(rs.getString("password"));
-        user.setAdmin(rs.getBoolean("admin"));
-        user.setCreatedAt(LocalDateTime.parse(rs.getString("created_at"), ofPattern("yyyy-MM-dd HH:mm:ss")));
-        user.setUpdatedAt(LocalDateTime.parse(rs.getString("updated_at"), ofPattern("yyyy-MM-dd HH:mm:ss")));
-        return user;
+    private SpecieType getInstanceSpecieType(ResultSet rs) throws SQLException {
+        SpecieType specieType = new SpecieType();
+        specieType.setId(rs.getInt("id"));
+        specieType.setName(rs.getString("name"));
+
+        return specieType;
     }
 }

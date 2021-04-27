@@ -14,7 +14,7 @@ public class UserTest {
 
     public static void main(String[] args) {
 
-// List all users
+        // List all users
         System.out.println("\n###############");
         UserDao userDao = DaoFactory.getUserDao();
         List<User> users = userDao.findAll();
