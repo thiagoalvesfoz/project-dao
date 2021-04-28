@@ -19,4 +19,7 @@ public class DaoFactory {
     public static SpecieDaoImpl getSpecieDao(){
         return  new SpecieDaoImpl(Database.getConnection());
     }
+    public static AnimalDaoImpl getAnimalDao() {
+        return  new AnimalDaoImpl(Database.getConnection());
+    }
 }
