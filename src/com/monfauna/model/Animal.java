@@ -46,6 +46,10 @@ public class Animal {
         return specie;
     }
 
+    public void setSpecie(Specie specie) {
+        this.specie = specie;
+    }
+
     public String getNumber() {
         return number;
     }
