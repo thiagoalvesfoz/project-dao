@@ -1,6 +1,14 @@
 package com.monfauna.dao;
 
 import com.monfauna.model.Animal;
+import com.monfauna.model.AnimalMeasurement;
 
-public interface AnimalDao extends Crud<Animal> {
+import java.util.List;
+
+public interface AnimalDao {
+    Animal save(Animal animal, Integer projectId);
+    List<Animal> findAll();
+    Animal findById(Integer id);
+    Animal update(Animal entity);
+    void deleteById(Integer id);
 }
