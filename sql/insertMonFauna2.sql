@@ -7,8 +7,14 @@ insert into location (name) values ('modulo5');
 insert into user (name, email, password, admin) values ('Charles Darwin', 'cdevolution@gmail.com', 'nomorelamarck8', 1);
 insert into user (name, email, password, admin) values ('George Hammer', 'geogehmm@gmail.com', 'neckfordays%00', 0);
 
-insert into project (name, owner_user_id) values ('Diversidade Parque Iguacu', 1);
-insert into project (name, owner_user_id) values ('Itaipu', 1);
+insert into project (name) values ('Diversidade Parque Iguacu');
+insert into project (name) values ('Itaipu');
+
+insert into user_project (user_id, project_id, role) values (1, 1, 'owner');
+insert into user_project (user_id, project_id, role) values (1, 2, 'collaborator');
+insert into user_project (user_id, project_id, role) values (2, 2, 'owner');
+insert into user_project (user_id, project_id, role) values (2, 1, 'collaborator');
+
 
 insert into specie_type (name) values ('Pholopoda');
 insert into specie_type (name) values ('Mustelidae');
@@ -21,11 +27,11 @@ insert into specie (scientific_name, common_name, specie_type_id) values ('Macro
 insert into specie (scientific_name, common_name, specie_type_id) values ('Squaro sponjus', 'Bob esponja', 1);
 insert into specie (scientific_name, common_name, specie_type_id) values ('Bravarus Heratus', 'Garurumon', 4);
 
-insert into animal (specie_id, number, sex, register_date, location_id, project_id) values (1, 69, 'F', '2015-08-09', 2, 1);
-insert into animal (specie_id, number, sex, register_date, location_id, project_id) values (2, 02, 'M', '2015-08-11', 5, 1);
-insert into animal (specie_id, number, sex, register_date, location_id, project_id) values (3, 09, 'F', '2015-08-13', 3, 1);
-insert into animal (specie_id, number, sex, register_date, location_id, project_id) values (4, 07, 'M', '2015-08-15', 1, 2);
-insert into animal (specie_id, number, sex, register_date, location_id, project_id) values (5, 08, 'M', '2015-08-01', 1, 2);
+insert into animal (specie_id, tag, sex, register_date, location_id, project_id) values (1, 69, 'F', '2015-08-09', 2, 1);
+insert into animal (specie_id, tag, sex, register_date, location_id, project_id) values (2, 02, 'M', '2015-08-11', 5, 1);
+insert into animal (specie_id, tag, sex, register_date, location_id, project_id) values (3, 09, 'F', '2015-08-13', 3, 1);
+insert into animal (specie_id, tag, sex, register_date, location_id, project_id) values (4, 07, 'M', '2015-08-15', 1, 2);
+insert into animal (specie_id, tag, sex, register_date, location_id, project_id) values (5, 08, 'M', '2015-08-01', 1, 2);
 
 insert into animal_measurement ( length, width, height, weight, description, animal_id) values (40, 5, 5 , 258.500, 'medidas padrao', 1);
 insert into animal_measurement ( length, description, animal_id) values (69, 'comprimento da asa', 1);
@@ -33,4 +39,3 @@ insert into animal_measurement ( length, width, height, weight, description, ani
 insert into animal_measurement ( length, width, height, weight, description, animal_id) values (2.1, 74, 2.2, 64, 'medidas padrao', 3);
 insert into animal_measurement ( length, width, height, weight, description, animal_id) values (7, 5, 5, 300, 'medidas padrao', 4);
 insert into animal_measurement ( length, width, height, weight, description, animal_id) values (8, 5, 5, 1270, 'medidas padrao', 5);
-
