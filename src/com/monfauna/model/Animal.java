@@ -9,7 +9,7 @@ public class Animal {
 
     private Integer id;
     private Specie specie;
-    private String number;
+    private String tag;
     private char sex;
     private String imageUrl;
     private LocalDateTime createdAt;
@@ -22,9 +22,9 @@ public class Animal {
 
     }
 
-    public Animal(Integer id, String number, Specie specie, char sex, String imageUrl, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDate registerDate, Location location) {
+    public Animal(Integer id, String tag, Specie specie, char sex, String imageUrl, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDate registerDate, Location location) {
         this.id = id;
-        this.number = number;
+        this.tag = tag;
         this.specie = specie;
         this.sex = sex;
         this.imageUrl = imageUrl;
@@ -50,12 +50,12 @@ public class Animal {
         this.specie = specie;
     }
 
-    public String getNumber() {
-        return number;
+    public String getTag() {
+        return tag;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public char getSex() {
@@ -125,7 +125,7 @@ public class Animal {
     public String toString() {
         return "Animal{" +
                 "id=" + id +
-                ", number='" + number + '\'' +
+                ", tag='" + tag + '\'' +
                 ", specie=" + specie + '\'' +
                 ", sex=" + sex +
                 ", imageUrl='" + imageUrl + '\'' +

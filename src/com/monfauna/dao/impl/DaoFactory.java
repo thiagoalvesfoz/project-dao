@@ -22,4 +22,7 @@ public class DaoFactory {
     public static AnimalDaoImpl getAnimalDao() {
         return  new AnimalDaoImpl(Database.getConnection());
     }
+    public static ProjectDaoImpl getProjectDao() {
+        return  new ProjectDaoImpl(Database.getConnection());
+    }
 }

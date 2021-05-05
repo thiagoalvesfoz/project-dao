@@ -5,13 +5,11 @@ import com.monfauna.infra.Database;
 import com.monfauna.model.*;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.time.format.DateTimeFormatter.ofPattern;
 
 public class AnimalDaoImpl implements AnimalDao {
 
@@ -28,14 +26,14 @@ public class AnimalDaoImpl implements AnimalDao {
        PreparedStatement ps;
        ResultSet rs = null;
 
-       String sql = "INSERT INTO animal (specie_id, number, sex, image, register_date, location_id, project_id) " +
+       String sql = "INSERT INTO animal (specie_id, tag, sex, image_url, register_date, location_id, project_id) " +
                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
        try {
 
            ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
            ps.setInt(1, animal.getSpecie().getId());
-           ps.setString(2, animal.getNumber());
+           ps.setString(2, animal.getTag());
            ps.setString(3, String.valueOf(animal.getSex()));
            ps.setString(4, animal.getImageUrl());
            ps.setDate(5, Date.valueOf(animal.getRegisterDate()));
@@ -183,13 +181,13 @@ public class AnimalDaoImpl implements AnimalDao {
 
         PreparedStatement ps = null;
 
-        String sql = "UPDATE animal SET specie_id = ?, number = ?, sex = ?, image = ?, register_date = ?, location_id = ? " +
+        String sql = "UPDATE animal SET specie_id = ?, tag = ?, sex = ?, image_url = ?, register_date = ?, location_id = ? " +
                 "WHERE id = ?";
 
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, animal.getSpecie().getId());
-            ps.setString(2, animal.getNumber());
+            ps.setString(2, animal.getTag());
             ps.setString(3, String.valueOf(animal.getSex()));
             ps.setString(4, animal.getImageUrl());
             ps.setDate(5, Date.valueOf(animal.getRegisterDate()));
@@ -242,9 +240,9 @@ public class AnimalDaoImpl implements AnimalDao {
     private Animal getInstanceAnimal(ResultSet rs) throws SQLException {
        Animal animal = new Animal();
        animal.setId(rs.getInt("id"));
-       animal.setNumber(rs.getString("number"));
+       animal.setTag(rs.getString("tag"));
        animal.setSex(rs.getString("sex").charAt(0));
-       animal.setImageUrl(rs.getString("image"));
+       animal.setImageUrl(rs.getString("image_url"));
        animal.setCreatedAt(rs.getDate("created_at").toLocalDate().atStartOfDay());
        animal.setUpdatedAt(rs.getDate("updated_at").toLocalDate().atStartOfDay());
        animal.setRegisterDate(rs.getDate("register_date").toLocalDate());

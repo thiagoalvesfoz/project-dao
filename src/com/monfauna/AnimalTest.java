@@ -34,7 +34,7 @@ public class AnimalTest {
         Specie specieNew = new Specie();
         specieNew.setId(2);
         animalToSave.setSpecie(specieNew);
-        animalToSave.setNumber("2346");
+        animalToSave.setTag("2346");
         animalToSave.setSex('M');
         animalToSave.setImageUrl("aefvjuyikyu54e4236ukjgf");
         animalToSave.setRegisterDate(LocalDate.now());
@@ -49,7 +49,7 @@ public class AnimalTest {
         //Update animal
         System.out.println("");
         Animal animalToUpdate = animalDao.findById(animalSaved.getId());
-        animalToUpdate.setNumber("27746");
+        animalToUpdate.setTag("27746");
         animalToUpdate.setSex('F');
         animalToUpdate.setImageUrl("aefvjuyikyu54e4236ukjgf");
         animalToUpdate.setRegisterDate(LocalDate.now());
