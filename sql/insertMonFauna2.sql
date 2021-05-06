@@ -8,14 +8,13 @@ insert into user (name, email, password, admin) values ('Charles Darwin', 'cdevo
 insert into user (name, email, password, admin) values ('George Hammer', 'geogehmm@gmail.com', 'neckfordays%00', 0);
 insert into user (name, email, password, admin) values ('Fyra Lawter', 'lytnaw@gmail.com', 'laracrofter34', 0);
 
-insert into project (name) values ('Diversidade Parque Iguacu');
-insert into project (name) values ('Itaipu');
+insert into project (name, owner_user_id) values ('Diversidade Parque Iguacu', 1);
+insert into project (name, owner_user_id) values ('Itaipu', 2);
 
-insert into user_project (user_id, project_id, role) values (1, 1, 'owner');
-insert into user_project (user_id, project_id, role) values (1, 2, 'collaborator');
-insert into user_project (user_id, project_id, role) values (2, 2, 'owner');
-insert into user_project (user_id, project_id, role) values (2, 1, 'collaborator');
-insert into user_project (user_id, project_id, role) values (3, 1, 'collaborator');
+insert into collaborator_project (user_id, project_id) values (1, 2);
+insert into collaborator_project (user_id, project_id) values (2, 1);
+insert into collaborator_project (user_id, project_id) values (3, 1);
+insert into collaborator_project (user_id, project_id) values (3, 2);
 
 
 insert into specie_type (name) values ('Pholopoda');
