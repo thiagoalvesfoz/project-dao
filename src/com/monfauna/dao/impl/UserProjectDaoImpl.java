@@ -2,6 +2,8 @@ package com.monfauna.dao.impl;
 
 import com.monfauna.dao.UserProjectDao;
 import com.monfauna.infra.Database;
+import com.monfauna.model.Project;
+import com.monfauna.model.User;
 import com.monfauna.model.UserProject;
 
 import java.sql.*;
@@ -44,16 +46,6 @@ class UserProjectDaoImpl implements UserProjectDao {
     }
 
     @Override
-    public List<UserProject> findAll() {
-        return null;
-    }
-
-    @Override
-    public UserProject findById(Integer id) {
-        return null;
-    }
-
-    @Override
     public UserProject update(UserProject entity) {
         return null;
     }
@@ -61,5 +53,20 @@ class UserProjectDaoImpl implements UserProjectDao {
     @Override
     public void deleteById(Integer id) {
 
+    }
+
+    @Override
+    public User getOwner(Integer projectId) {
+        return null;
+    }
+
+    @Override
+    public List<User> getCollaborator(Integer projectId) {
+        return null;
+    }
+
+    @Override
+    public List<Project> findAllProjectByUser(Integer userId) {
+        return null;
     }
 }
