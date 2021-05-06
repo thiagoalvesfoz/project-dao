@@ -7,7 +7,8 @@ public class Project {
 
     private Integer id;
     private String name;
-    private List<Animal> animals = new ArrayList<>();
+    private final List<User> users = new ArrayList<>();
+    private final List<Animal> animals = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -25,6 +26,10 @@ public class Project {
         this.name = name;
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
 
     public List<Animal> getAnimals() {
         return animals;
@@ -35,6 +40,7 @@ public class Project {
         return "Project{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", users=" + users +
                 ", animals=" + animals +
                 '}';
     }

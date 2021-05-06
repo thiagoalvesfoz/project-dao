@@ -6,6 +6,7 @@ insert into location (name) values ('modulo5');
 
 insert into user (name, email, password, admin) values ('Charles Darwin', 'cdevolution@gmail.com', 'nomorelamarck8', 1);
 insert into user (name, email, password, admin) values ('George Hammer', 'geogehmm@gmail.com', 'neckfordays%00', 0);
+insert into user (name, email, password, admin) values ('Fyra Lawter', 'lytnaw@gmail.com', 'laracrofter34', 0);
 
 insert into project (name) values ('Diversidade Parque Iguacu');
 insert into project (name) values ('Itaipu');
@@ -14,6 +15,7 @@ insert into user_project (user_id, project_id, role) values (1, 1, 'owner');
 insert into user_project (user_id, project_id, role) values (1, 2, 'collaborator');
 insert into user_project (user_id, project_id, role) values (2, 2, 'owner');
 insert into user_project (user_id, project_id, role) values (2, 1, 'collaborator');
+insert into user_project (user_id, project_id, role) values (3, 1, 'collaborator');
 
 
 insert into specie_type (name) values ('Pholopoda');
