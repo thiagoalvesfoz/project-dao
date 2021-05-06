@@ -3,7 +3,6 @@ package com.monfauna;
 import com.monfauna.dao.LocationDao;
 import com.monfauna.dao.UserDao;
 import com.monfauna.model.Location;
-import com.monfauna.model.Owner;
 import com.monfauna.model.User;
 import com.monfauna.dao.impl.DaoFactory;
 
@@ -30,7 +29,7 @@ public class UserTest {
         //Save user
         //Dados de entrada
         System.out.println("\n###############");
-        User owner = new Owner();
+        User owner = new User();
         owner.setName("Naz");
         owner.setEmail("nazarew@gmail.com");
         owner.setPassword("kolachaqua45");

@@ -2,7 +2,6 @@ package com.monfauna.dao.impl;
 
 import com.monfauna.dao.UserDao;
 import com.monfauna.infra.Database;
-import com.monfauna.model.Owner;
 import com.monfauna.model.User;
 
 import java.sql.*;
@@ -158,7 +157,7 @@ class UserDaoImpl implements UserDao {
     }
 
     private User getInstanceUser(ResultSet rs) throws SQLException {
-        User user = new Owner();
+        User user = new User();
         user.setId(rs.getInt("id"));
         user.setName(rs.getString("name"));
         user.setEmail(rs.getString("email"));

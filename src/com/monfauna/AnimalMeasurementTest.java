@@ -3,9 +3,6 @@ package com.monfauna;
 import com.monfauna.dao.AnimalMeasurementDao;
 import com.monfauna.dao.impl.DaoFactory;
 import com.monfauna.model.AnimalMeasurement;
-import com.monfauna.model.Owner;
-import com.monfauna.model.SpecieType;
-import com.monfauna.model.User;
 
 import java.util.List;
 

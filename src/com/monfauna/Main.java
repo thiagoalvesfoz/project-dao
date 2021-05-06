@@ -9,13 +9,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Owner owner = new Owner();
+        User owner = new User();
         owner.setName("Ham");
         owner.setEmail("breadwithham@gmail.com");
         owner.setPassword("jacurahamma");
         owner.setAdmin(true);
 
-        Collaborator collaborator = new Collaborator();
+        User collaborator = new User();
         collaborator.setName("Bon");
         collaborator.setEmail("Bonnaparte2@gmail.com");
         collaborator.setPassword("folagiaers34");
@@ -41,8 +41,6 @@ public class Main {
 
         Project project = new Project();
         project.setName("Jurassic Park");
-        project.setOwner(owner);
-        project.getCollaborators().add(collaborator);
         project.getAnimals().add(animal);
         System.out.println(project);
 

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 //classe User não pode ser instanciada pq é uma classe abstrata e estas não podem ser concretizadas,
 //apenas definem como suas subclasses funcionam
-public abstract class User {
+public class User {
 
     private Integer id;
     private String name;
@@ -13,6 +13,19 @@ public abstract class User {
     private boolean admin;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public User() {
+    }
+
+    public User(Integer id, String name, String email, String password, boolean admin, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.admin = admin;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;

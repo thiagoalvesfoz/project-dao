@@ -7,8 +7,6 @@ public class Project {
 
     private Integer id;
     private String name;
-    private Owner owner;
-    private List<Collaborator> collaborators = new ArrayList<>();
     private List<Animal> animals = new ArrayList<>();
 
     public Integer getId() {
@@ -27,17 +25,6 @@ public class Project {
         this.name = name;
     }
 
-    public Owner getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Owner owner) {
-        this.owner = owner;
-    }
-
-    public List<Collaborator> getCollaborators() {
-        return collaborators;
-    }
 
     public List<Animal> getAnimals() {
         return animals;
@@ -48,8 +35,6 @@ public class Project {
         return "Project{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", owner=" + owner +
-                ", collaborators=" + collaborators +
                 ", animals=" + animals +
                 '}';
     }
